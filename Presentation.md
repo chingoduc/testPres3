@@ -1,39 +1,18 @@
-My 3rd attempt
+Algae Prediction Preparations
 ========================================================
 author: Chi Ngo
-date: `r date()`
+date:   Sun Apr 26 22:18:54 2015
 
-First Slide
-========================================================
-
-For more details on authoring R presentations click the
-**Help** button on the toolbar.
-
-- Bullet 1
-- Bullet 2
-- Bullet 3
-
-Slide With Code
-========================================================
-
-```{r}
-summary(cars)
-```
-
-Slide With Plot
-========================================================
-
-```{r, echo=FALSE}
-plot(cars)
-```
 =============
 ### Introduction
 - Basic tasks of data mining: data pre-processing, exploratory data analysis, and predictive model construction.
 We are going to restrict our task to:
 - look at two different ways to handle unknown values: by most frequent values and by similarity  and
 - choose rtree as a way to create the prediction model of algaes provided by the dataset for predictions 
-- Refer to my associated shiny application,  User will be allowed to select one of the seven algaes and the method to handle unknown values.
+- Refer to my associated shiny application, User will be allowed to select one of the seven algaes and the method to handle unknown values.
 - In this report, we will only give an example about the case the "a1" algae
+
+=============
 ### Data Description
 Data sets: Algae from the library "DMwR" of the book "Data Mining with R"
 First data set has 200 samples, each contains 11 variables:
@@ -43,43 +22,20 @@ First data set has 200 samples, each contains 11 variables:
 
 =============
 
-``` {r, echo=FALSE}
-library(DMwR); data(algae); library(rpart)
 
-```
 
 ### Methods
-
 - Eliminate all samples which have more than 20% of the columns with an NA.
-``` {r, echo=FALSE, results='hide'}
-manyNAs(algae, 0.2)
-algae <- algae[-manyNAs(algae,0.2),]
-
-```
 
 - Replacing all NAs using the most frequent value: The function centralImputation(), available in the library DMwR replaces all unknowns in a dataset by the median for numeric columns and the most frequent value for nominal variables.
 - Modeling based on Regression Tree
-
-``` {r, echo=FALSE}
-
-algae1 <- centralImputation(algae)
-rt.a11 <- rpart(a1 ~ ., data = algae1[, 1:12])
-prettyTree(rt.a11)
-
-```
+![plot of chunk unnamed-chunk-3](Presentation-figure/unnamed-chunk-3-1.png) 
 
 =============
-
 - Replacing all NAs using the function knnImputation() in the library DMwR, k = 10 in our case.
 - Modeling based on Regression Tree
 
-``` {r, echo=FALSE}
-
-algae2 <- knnImputation(algae, k = 10)
-rt.a12 <- rpart(a1 ~ ., data = algae2[, 1:12])
-prettyTree(rt.a12)
-
-```
+![plot of chunk unnamed-chunk-4](Presentation-figure/unnamed-chunk-4-1.png) 
 
 =============
 
@@ -91,4 +47,3 @@ Not a big difference between the two Regression Tree for the prediction for the 
 Torgo, Luis.
 Data mining with R : learning with case studies
 ISBN 978-1-4398-1018-7 
-
